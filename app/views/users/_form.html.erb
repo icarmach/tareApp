@@ -1,3 +1,6 @@
+<% if flash[:error] %>
+        <p id="warning"><%= flash[:error] %></p>
+<% end %>
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -24,20 +27,14 @@
     <%= f.text_field :lastname %>
   </div>
   <div class="field">
-    <%= f.label :deleted %><br />
-    <%= f.number_field :deleted %>
+  <label for="password">Contraseña</label>
+  <br>
+    <%= password_field_tag :password%>
   </div>
   <div class="field">
-    <%= f.label :admin %><br />
-    <%= f.check_box :admin %>
-  </div>
-  <div class="field">
-    <%= f.label :hash_password %><br />
-    <%= f.text_field :hash_password %>
-  </div>
-  <div class="field">
-    <%= f.label :salt %><br />
-    <%= f.text_field :salt %>
+    <label for="password_confirmation">Confirmación de Contraseña</label>
+  <br>
+	<%= password_field_tag :password_confirmation%>
   </div>
   <div class="actions">
     <%= f.submit %>
