@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417203720) do
+ActiveRecord::Schema.define(:version => 20130417205746) do
 
   create_table "archives", :force => true do |t|
     t.string   "name"
@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(:version => 20130417203720) do
     t.string   "lastname"
     t.integer  "deleted"
     t.boolean  "admin"
-    t.string   "hash"
+    t.string   "hash_password"
     t.string   "salt"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "token"
   end
 
