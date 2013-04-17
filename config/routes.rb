@@ -1,4 +1,13 @@
 TareApp::Application.routes.draw do
+  resources :homeworks
+
+
+  resources :archives
+
+
+  resources :users
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
