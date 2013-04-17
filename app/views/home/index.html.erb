@@ -1,0 +1,12 @@
+<div class="container">
+
+     <%= form_for(User.new, :url => '/', :class => 'new_user') do |f| %>
+     <center><h2 class="form-signin-heading">Por favor, identif&iacute;quese</h2></center>
+     <input type="text" name="mail" class="input-block-level" id="mail" placeholder="Email">
+     <input type="password" name="password" id="password" class="input-block-level" placeholder="Contrase&ntilde;a">
+	 <center>
+<% if flash[:error] %>
+        <p id="warning"><%= flash[:error] %></p>
+<% end %><%= f.submit "Login" , :name => "commit", :class => "btn btn-large btn-primary" %><%= link_to 'Registrarse', new_user_path, :name => "commit", :class => "btn btn-large btn-primary"  %></center>
+ 	 <% end %>
+</div>
