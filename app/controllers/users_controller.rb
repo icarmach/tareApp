@@ -122,4 +122,9 @@ class UsersController < ApplicationController
 			end
 		end
   end
+
+  def search
+
+  	flash[:searchinfo] = "No se puede borrar al unico admin"
+  end
 end
