@@ -4,11 +4,23 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.find_all_by_deleted(0)
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-    end
+	if !session[:user_id]
+		flash[:error] = "Acceso denegado, se ha creado un registro del incidente"
+		::Rails.logger.error("\n #{Time.now.strftime("%d/%m/%Y %H:%M	")} ERORR: Usuario no identificado intenta acceso a /Users \n")
+		redirect_to home_path
+	else
+		if !User.find(session[:user_id]).admin
+			flash[:error] = "Acceso denegado, se ha creado un registro del incidente"
+			::Rails.logger.error("\n #{Time.now.strftime("%d/%m/%Y %H:%M	")} ERORR: Usuario #{User.find(session[:user_id]).email} intenta acceso a /Users \n")
+			redirect_to home_path
+		else
+			@users = User.find_all_by_deleted(0)
+			respond_to do |format|
+				format.html # index.html.erb
+				format.json { render json: @users }
+			end
+		end
+	end
   end
 
   # GET /users/1
@@ -51,14 +63,16 @@ class UsersController < ApplicationController
 		@user.hash_password = @hashed
 		
 		@user.deleted = 0;
-		@user.admin = FALSE;
+		if(User.all.size < 1)
+			@user.admin = true
+		else
+			@user.admin = FALSE;
+		end
 		
 		respond_to do |format|
 			if @user.save
-				#session[:user_id] = @user.id
-				redirect_to home_path
-				#format.html { redirect_to @user, notice: 'User was successfully created.' }
-				#format.json { render json: @user, status: :created, location: @user }
+				session[:user_id] = @user.id
+				format.html { redirect_to home_path }
 			else
 				format.html { render action: "new" }
 				format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -75,6 +89,12 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
+	if params[:admin]
+		@user.admin = true;
+	else
+		@user.admin = false;
+	end
+	
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -90,11 +110,16 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+	if(@user.admin and User.find_all_by_admin(true).size <= 1)
+		flash[:error] = "No se puede borrar al unico admin"
+		redirect_to home_path
+	else
+		@user.destroy
 
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
-    end
+		respond_to do |format|
+			format.html { redirect_to users_url }
+			format.json { head :no_content }
+			end
+		end
   end
 end

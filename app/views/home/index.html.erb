@@ -1,3 +1,6 @@
+<% if flash[:error] %>
+    <p id="warning"><%= flash[:error] %></p>
+<% end %>
 <div class="container">
 	<% if !session[:user_id] %>
 		<%= form_for(User.new, :url => '/', :class => 'new_user') do |f| %>
@@ -16,5 +19,8 @@
 		<% end %>
 	<% else %>
 		<h2>Bienvenido <%= User.find(session[:user_id]).name %> </h2>
+		<% if User.find(session[:user_id]).admin %>
+			<%= link_to 'Ver usuarios', users_path %>
+		<% end %>
 	<% end %>
 </div>
