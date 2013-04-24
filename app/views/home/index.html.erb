@@ -20,6 +20,11 @@
 	<% else %>
 		<h2>Bienvenido <%= User.find(session[:user_id]).name %> </h2>
 		<% if User.find(session[:user_id]).admin %>
+			<%= form_tag("/search", :method => "post") do %>
+				<%= label_tag(:q, "Busquemos weas:") %>
+				<%= text_field_tag(:q) %>
+				<%= submit_tag("Busquemos weas") %>
+			<% end %>
 			<%= link_to 'Ver usuarios', users_path %>
 		<% end %>
 	<% end %>
