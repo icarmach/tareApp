@@ -124,7 +124,37 @@ class UsersController < ApplicationController
   end
 
   def search
-
-  	flash[:searchinfo] = "No se puede borrar al unico admin"
+	if(params[:simple_query].size > 0)
+		flash.now[:searchinfo] = "Busqueda simple por mail #{params[:simple_query]}"
+		@users = User.find(:all, :conditions=>['email LIKE ?', "%#{params[:simple_query]}%"])
+	else
+		@conditions = Array.new
+		if (params[:sufijo].size > 0)
+			@conditions.push('email LIKE ?', "%#{params[:sufijo]}%")
+		end
+		if (params[:date].size > 0)
+			@conditions.push('created_at LIKE ?', "%#{params[:date]}%")
+		end
+		if (params[:date1].size > 0 and (params[:date2].size > 0))
+			@date1 = "#{params[:date1]}%T00:00:00Z"
+			@date2 = "#{params[:date2]}%T23:59:59Z"
+			@conditions.push('created_at > ? AND created_at <?', "#{@date1}", "#{@date2}")
+		end
+		if (params[:admin])
+			@conditions.push('admin = ?', true)
+		end
+		if (params[:first_name].size > 0)
+			@conditions.push('name LIKE ?', "%#{params[:first_name]}%")
+		end
+		if (params[:last_name].size > 0)
+			@conditions.push('lastname LIKE ?', "%#{params[:last_name]}%")
+		end
+		
+		@users = User.find(:all, :conditions=>@conditions)
+	end
+		respond_to do |format|
+			format.html # index.html.erb
+			format.json { render json: @users }
+		end
   end
 end

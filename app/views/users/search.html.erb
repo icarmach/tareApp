@@ -1,0 +1,130 @@
+<h1>Resultados de la b&uacute;squeda</h1>
+<% if flash[:searchinfo] %>
+        <p id="searchinfo"><%= flash[:searchinfo] %></p>
+<% end %>
+
+<div id = "form_busqueda">
+	<%= form_tag("/search", :method => "post") do %>
+		<%= label_tag(:simple_query, "Buscar usuario:", :id=>"simple_tag") %>
+		<%= text_field_tag(:simple_query) %>
+		<%= label_tag(:sufijo, "", :id=>"sufijo_tag") %>
+		<%= hidden_field_tag(:sufijo) %>
+		<%= label_tag(:date, "", :id=>"date_tag") %>
+		<%= hidden_field_tag(:date) %>
+		
+		<%= label_tag(:date1, "", :id=>"date1_2_tag") %>
+		<%= hidden_field_tag(:date1) %>
+		<%= hidden_field_tag(:date2) %>
+		
+		<%= label_tag(:date1, "", :id=>"admin_tag") %>
+		<%= hidden_field_tag(:admin) %>
+		
+		<%= label_tag(:date1, "", :id=>"first_name_tag") %>
+		<%= hidden_field_tag(:first_name) %>
+		
+		<%= label_tag(:date1, "", :id=>"last_name_tag") %>
+		<%= hidden_field_tag(:last_name) %>
+		
+		<%= label_tag(:date1, "", :id=>"tarea_tag") %>
+		<%= hidden_field_tag(:tarea) %>
+		
+		<br />
+		
+		<%= submit_tag("Buscar usuario") %>
+	<% end %>
+	<%= button_tag(type: 'submit', id: "advanced_button", onclick: "avanzada_click()") do %>
+		Busqueda Avanzada
+	<% end %>
+</div>
+
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Lastname</th>
+    <th>Admin</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.email %></td>
+    <td><%= user.name %></td>
+    <td><%= user.lastname %></td>
+    <td><%= user.admin %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New User', new_user_path %>
+
+<script>
+	var avanzada = false;
+
+	function avanzada_click(){
+		if(!avanzada)
+		{
+			document.getElementById("simple_query").value = "";
+			document.getElementById("simple_query").type = 'hidden';
+			document.getElementById("sufijo_tag").innerHTML = 'Sufijo email:';
+			document.getElementById("sufijo").type = 'text';
+			document.getElementById("date_tag").innerHTML = 'Fecha Crecion:';
+			document.getElementById("date").type = 'date';
+			
+			document.getElementById("date1_2_tag").innerHTML = 'Rango de Fechas Crecion:';
+			document.getElementById("date1").type = 'date';
+			document.getElementById("date2").type = 'date';
+			
+			document.getElementById("admin_tag").innerHTML = 'Administrador:';
+			document.getElementById("admin").type = 'checkbox';
+			
+			document.getElementById("first_name_tag").innerHTML = 'Nombre:';
+			document.getElementById("first_name").type = 'text';
+			
+			document.getElementById("last_name_tag").innerHTML = 'Apellido:';
+			document.getElementById("last_name").type = 'text';
+			
+			document.getElementById("tarea_tag").innerHTML = 'Nombre Tarea:';
+			document.getElementById("tarea").type = 'text';
+			
+			document.getElementById("advanced_button").innerHTML = 'Busqueda simplificada';
+			avanzada = !avanzada;
+		}
+		else
+		{
+			document.getElementById("simple_query").value = "";
+			document.getElementById("simple_query").type = 'text';
+			document.getElementById("sufijo_tag").innerHTML = '';
+			document.getElementById("sufijo").type = 'hidden';
+			document.getElementById("date_tag").innerHTML = '';
+			document.getElementById("date").type = 'hidden';
+			
+			document.getElementById("date1_2_tag").innerHTML = '';
+			document.getElementById("date1").type = 'hidden';
+			document.getElementById("date2").type = 'hidden';
+			
+			document.getElementById("admin_tag").innerHTML = '';
+			document.getElementById("admin").type = 'hidden';
+			
+			document.getElementById("first_name_tag").innerHTML = '';
+			document.getElementById("first_name").type = 'hidden';
+			
+			document.getElementById("last_name_tag").innerHTML = '';
+			document.getElementById("last_name").type = 'hidden';
+			
+			document.getElementById("tarea_tag").innerHTML = '';
+			document.getElementById("tarea").type = 'hidden';
+			
+			document.getElementById("advanced_button").innerHTML = 'Busqueda avanzada';
+			avanzada = !avanzada;
+		}
+	}
+
+</script>

@@ -16,25 +16,25 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.text_field :email %>
+    <%= f.text_field :email , :required => true%>
   </div>
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :required => true %>
   </div>
   <div class="field">
     <%= f.label :lastname %><br />
-    <%= f.text_field :lastname %>
+    <%= f.text_field :lastname, :required => true %>
   </div>
   <div class="field">
   <label for="password">Contraseña</label>
   <br>
-    <%= password_field_tag :password%>
+    <%= password_field_tag :password, nil, :required => true %>
   </div>
   <div class="field">
     <label for="password_confirmation">Confirmación de Contraseña</label>
   <br>
-	<%= password_field_tag :password_confirmation%>
+	<%= password_field_tag :password_confirmation, nil, :required => true %>
   </div>
   <div class="actions">
     <%= f.submit %>
