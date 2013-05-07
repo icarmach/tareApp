@@ -1,4 +1,4 @@
-<%= form_for(@homework) do |f| %>
+<%= form_for @homework, :html => { :multipart => true } do |f| %>
   <% if @homework.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@homework.errors.count, "error") %> prohibited this homework from being saved:</h2>
@@ -20,8 +20,8 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label "Path Enunciado" %><br />
-    <%= f.text_field :path %>
+    <%= f.label "Archivo Enunciado" %><br />
+    <%= f.file_field :description_file %>
   </div>
   <div class="field">
     <%= f.label "Enunciado Manual" %><br />

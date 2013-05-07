@@ -16,3 +16,6 @@
 
 # Ignore for Mac
 .DS_Store
+
+# Ignore local uploads
+/public/system
