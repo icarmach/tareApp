@@ -1,4 +1,4 @@
-<%= form_for @homework, :html => { :multipart => true } do |f| %>
+<%= form_for(@homework, :html => { :multipart => true }) do |f| %>
   <% if @homework.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@homework.errors.count, "error") %> prohibited this homework from being saved:</h2>
