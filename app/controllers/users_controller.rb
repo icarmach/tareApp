@@ -157,4 +157,55 @@ class UsersController < ApplicationController
 			format.json { render json: @users }
 		end
   end
+
+  def forgottenpassword
+    #@user = User.find(params[:id])
+	#if(@user.admin and User.find_all_by_admin(true).size <= 1)
+	#	flash[:error] = "No se puede borrar al unico admin"
+	#	redirect_to home_path
+	#else
+	#	@user.destroy
+		respond_to do |format|
+			format.html # forgotten.html.erb
+			format.json { head :no_content }
+			end
+	#	end
+  end
+
+  def changepassword
+	if(params[:old_password].size > 0)
+		if(params[:new_password] == params[:new_password_check])
+			#Revisar contraseña
+			userid = session[:user_id]
+			@user = User.find(userid)
+			@salt = @user.salt
+				@hashed = @salt + params[:old_password]
+				10.times do
+					@hashed = Digest::SHA1.hexdigest(@hashed)
+				end
+				if @hashed == @user.hash_password
+					#Cambiar por la nueva contraseña
+					@user.salt = SecureRandom.hex
+					@hashed = @user.salt + params[:new_password]
+					10.times do
+						@hashed = Digest::SHA1.hexdigest(@hashed)
+					end
+					@user.hash_password = @hashed
+					@user.save
+					flash.now[:error] = "La contrasena ha sido cambiada con exito."
+				else
+					flash.now[:error] = "Error : La contrasena original no es correcta."
+				end
+		else
+			flash.now[:error] = "Error : La verificacion de la nueva contrasena no coincide con la nueva contrasena."
+		end
+	else
+		flash.now[:error] = "Error : La contrasena original no es correcta."
+	end
+		respond_to do |format|
+			format.html # changepassword.html.erb
+			format.json { render json: @users }
+		end
+  end
+
 end

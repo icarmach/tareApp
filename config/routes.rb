@@ -12,4 +12,8 @@ TareApp::Application.routes.draw do
 	match 'logout' => 'home#logout', :as => :logout
 	
 	match 'search' => 'users#search', :as => :search
+
+	match 'forgottenpassword' => 'users#forgottenpassword', :as => :forgottenpassword
+
+	match 'changepassword' => 'users#changepassword', :as => :changepassword
 end
