@@ -2,7 +2,8 @@ class HomeworksController < ApplicationController
   # GET /homeworks
   # GET /homeworks.json
   def index
-    @homeworks = Homework.all
+    userid = session[:user_id]
+    @homeworks = Homework.find_all_by_user_id(userid)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,7 +42,8 @@ class HomeworksController < ApplicationController
   # POST /homeworks.json
   def create
     @homework = Homework.new(params[:homework])
-
+    userid = session[:user_id]
+    @homework.user_id = userid
     respond_to do |format|
       if @homework.save
         format.html { redirect_to @homework, notice: 'Homework was successfully created.' }

@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TareApp</title>
+  <title>Buzón</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<div class="header">
+      <!-- <div class ="logo"><%= link_to image_tag("Buzon.png"), home_path  %></div>-->	
 <% if session[:user_id] %>
-	<%= link_to "Logout", logout_path %>
+	 <%= link_to 'Ver Tareas', homeworks_path %> - <div class="logout_header"><%= link_to "Logout", logout_path %></div>
 <% else %>
-	<%= link_to "Login", home_path %>
+	<div class="signs_header"><%= link_to "Identificarse", home_path %> - 
+		<%= link_to 'Registrarse', new_user_path %></div>
 <% end %>
+</div>
 <%= yield %>
 
 </body>
