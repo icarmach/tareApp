@@ -12,11 +12,14 @@ class HomeController < ApplicationController
 				end
 				if @hashed == @user.hash_password
 					session[:user_id] = @user.id
+					render "index.html.erb"
 				else
 					flash.now[:error] = "Nombre de usuario o password equivocado"
+					render "index.html.erb"
 				end
 			else
 				flash.now[:error] = "Nombre de usuario o password equivocado"
+				render "index.html.erb"
 			end
 		else 
 			if params[:commit] == "Sign Up"

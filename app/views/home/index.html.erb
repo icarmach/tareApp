@@ -13,7 +13,7 @@
 				<% if flash[:error] %>
 					<p id="warning"><%= flash[:error] %></p>
 				<% end %>
-				<%= f.submit "Iniciar Sesión" , :name => "commit", :class => "btn btn-large btn-primary" %>
+				<%= f.submit "Login" , :name => "commit", :class => "btn btn-large btn-primary" %>
 				<%= link_to 'Registrarse', new_user_path, :name => "commit", :class => "btn btn-large btn-primary"  %>
 			</center>
 		<% end %>
