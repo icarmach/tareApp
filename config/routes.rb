@@ -20,4 +20,6 @@ TareApp::Application.routes.draw do
 	match 'administracion' => 'home#admin', :as => :admin
 	
 	match 'search_homework' => 'homeworks#search', :as => :search_homework
+	
+	match 'upload/:homework_id/' => 'homeworks#upload'
 end

@@ -26,12 +26,7 @@ class HomeController < ApplicationController
 
 					@my_homeworks = @user.homeworks
 	
-					@other_homeworks = Array.new
-					@user.homework_users.each do |hu|
-						@other_homeworks.push(hu.homework_id)
-					end
-	
-					@other_homeworks.uniq!
+					@other_homeworks = @user.other_homeworks()
 					
 					render "index.html.erb"
 				else

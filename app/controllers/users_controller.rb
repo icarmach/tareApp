@@ -159,17 +159,25 @@ class UsersController < ApplicationController
   end
 
   def forgottenpassword
-    #@user = User.find(params[:id])
-	#if(@user.admin and User.find_all_by_admin(true).size <= 1)
-	#	flash[:error] = "No se puede borrar al unico admin"
-	#	redirect_to home_path
-	#else
-	#	@user.destroy
+	if(params[:email])
+		@user = User.find_by_email(params[:email])
+		if @user == nil
+			flash[:error] = "No existe ese mail"
+			respond_to do |format|
+				format.html # forgotten.html.erb
+				format.json { head :no_content }
+			end
+		else
+			#TODO: Mandar el mail
+			flash[:error] = "Mail de recuperacion enviado a #{@user.email} (not really)"
+			redirect_to home_path
+		end
+	else
 		respond_to do |format|
 			format.html # forgotten.html.erb
 			format.json { head :no_content }
-			end
-	#	end
+		end
+	end
   end
 
   def changepassword

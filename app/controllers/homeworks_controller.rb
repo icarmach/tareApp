@@ -58,6 +58,7 @@ class HomeworksController < ApplicationController
 		end
 	else
 		@homework.user_id = userid
+		@homework.path = @homework.description_file.url
 		respond_to do |format|
 			if @homework.save
 				format.html { redirect_to @homework, notice: 'Homework was successfully created.' }
@@ -105,6 +106,14 @@ class HomeworksController < ApplicationController
 		else
 			@homeworks = Homework.all;
 		end
+		respond_to do |format|
+			format.html
+			format.json
+		end
+	end
+	
+	def upload
+		
 		respond_to do |format|
 			format.html
 			format.json

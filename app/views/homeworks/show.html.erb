@@ -1,18 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>User:</b>
-  <%= @homework.user_id %>
+  <b>Dueño:</b>
+  <%= link_to @homework.user.email, @homework.user %>
 </p>
 
 <p>
   <b>Name:</b>
   <%= @homework.name %>
-</p>
-
-<p>
-  <b>Description File:</b>
-  <%= image_tag @homework.description_file.url %>
 </p>
 
 <p>
@@ -23,21 +18,6 @@
 <p>
   <b>Description File Filename:</b>
   <%= @homework.description_file_file_name %>
-</p>
-
-<p>
-  <b>Description File Content Type:</b>
-  <%= @homework.description_file_content_type %>
-</p>
-
-<p>
-  <b>Description File Size:</b>
-  <%= @homework.description_file_file_size %>
-</p>
-
-<p>
-  <b>Description File Updated At:</b>
-  <%= @homework.description_file_updated_at %>
 </p>
 
 <p>

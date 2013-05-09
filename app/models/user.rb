@@ -8,4 +8,13 @@ class User < ActiveRecord::Base
 		:uniqueness => true,
 		:format => { :with => /^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i }
   
+	def other_homeworks()
+		homeworks = Array.new
+		self.homework_users.each do |hu|
+			homeworks.push(Homework.find(hu.homework_id))
+		end
+		homeworks.uniq!
+		return homeworks
+	end
+  
 end
