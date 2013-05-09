@@ -2,8 +2,15 @@ class HomeworksController < ApplicationController
   # GET /homeworks
   # GET /homeworks.json
   def index
-    userid = session[:user_id]
-    @homeworks = Homework.find_all_by_user_id(userid)
+    @user = User.find(session[:user_id])
+    @my_homeworks = @user.homeworks
+	
+	@other_homeworks = Array.new
+	@user.homework_users.each do |hu|
+		@other_homeworks.push(hu.homework_id)
+	end
+	
+	@other_homeworks.uniq!
 
     respond_to do |format|
       format.html # index.html.erb
@@ -43,16 +50,24 @@ class HomeworksController < ApplicationController
   def create
     @homework = Homework.new(params[:homework])
     userid = session[:user_id]
-    @homework.user_id = userid
-    respond_to do |format|
-      if @homework.save
-        format.html { redirect_to @homework, notice: 'Homework was successfully created.' }
-        format.json { render json: @homework, status: :created, location: @homework }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @homework.errors, status: :unprocessable_entity }
-      end
-    end
+	if(User.find(userid).homeworks.count >= 20)
+		@homework.errors.add(:user_id, "Usted ya tiene veinte o mas tareas")
+		respond_to do |format|
+			format.html { render action: "new" }
+			format.json { render json: @user.errors, status: :unprocessable_entity }
+		end
+	else
+		@homework.user_id = userid
+		respond_to do |format|
+			if @homework.save
+				format.html { redirect_to @homework, notice: 'Homework was successfully created.' }
+				format.json { render json: @homework, status: :created, location: @homework }
+			else
+				format.html { render action: "new" }
+				format.json { render json: @homework.errors, status: :unprocessable_entity }
+			end
+		end
+	end
   end
 
   # PUT /homeworks/1
@@ -82,4 +97,17 @@ class HomeworksController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+	def search
+		if(params[:simple_query].size > 0)
+			flash.now[:searchinfo] = "Busqueda por nombre #{params[:simple_query]}"
+			@homeworks = Homework.find(:all, :conditions=>['name LIKE ?', "%#{params[:simple_query]}%"])
+		else
+			@homeworks = Homework.all;
+		end
+		respond_to do |format|
+			format.html
+			format.json
+		end
+	end
 end

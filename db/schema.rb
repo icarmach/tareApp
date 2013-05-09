@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508004955) do
+ActiveRecord::Schema.define(:version => 20130508192347) do
 
   create_table "archives", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(:version => 20130508004955) do
     t.string   "upload_file_content_type"
     t.integer  "upload_file_file_size"
     t.datetime "upload_file_updated_at"
+  end
+
+  create_table "homework_users", :force => true do |t|
+    t.integer  "homework_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "homeworks", :force => true do |t|

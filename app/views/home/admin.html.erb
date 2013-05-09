@@ -1,0 +1,21 @@
+<% if flash[:error] %>
+    <p id="warning"><%= flash[:error] %></p>
+<% end %>
+<div class="container">
+	<h3> Administración</h3>
+	<br />
+	<%= form_tag("/search", :method => "post") do %>
+		<%= label_tag(:simple_query, "Buscar usuario:") %>
+		<%= text_field_tag(:simple_query) %>
+		<%= submit_tag("Buscar usuario") %>
+	<% end %>
+	<%= link_to 'Ver todos los usuarios', users_path %>
+	<br/>
+	<br/>
+	<%= form_tag(search_homework_path, :method => "post") do %>
+		<%= label_tag(:simple_query, "Buscar Tarea:") %>
+		<%= text_field_tag(:simple_query) %>
+		<%= submit_tag("Buscar Tarea") %>
+	<% end %>
+	<%= link_to 'Ver todas las tareas', homeworks_path %>
+</div>

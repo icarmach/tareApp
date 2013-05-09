@@ -1,0 +1,42 @@
+<h1>Tareas</h1>
+
+<br />
+
+<% if @my_homeworks.count > 0 %>
+	<h3>Mis Tareas</h3>
+
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Path</th>
+			<th>Description</th>
+			<th>Active</th>
+			<th>Deadline</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+
+		<% @my_homeworks.each do |homework| %>
+			<tr>
+				<td><%= homework.name %></td>
+				<td><%= homework.path %></td>
+				<td><%= homework.description %></td>
+				<td><%= homework.active %></td>
+				<td><%= homework.deadline %></td>
+				<td><%= link_to 'Show', homework %></td>
+				<td><%= link_to 'Edit', edit_homework_path(homework) %></td>
+				<td><%= link_to 'Destroy', homework, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
+
+<br />
+
+<% if @other_homeworks.count > 0 %>
+	<h3>Tareas en que participo</h3>
+<% end %>
+<br />
+
+<%= link_to 'New Homework', new_homework_path %>

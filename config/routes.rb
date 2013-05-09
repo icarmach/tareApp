@@ -16,4 +16,8 @@ TareApp::Application.routes.draw do
 	match 'forgottenpassword' => 'users#forgottenpassword', :as => :forgottenpassword
 
 	match 'changepassword' => 'users#changepassword', :as => :changepassword
+	
+	match 'administracion' => 'home#admin', :as => :admin
+	
+	match 'search_homework' => 'homeworks#search', :as => :search_homework
 end

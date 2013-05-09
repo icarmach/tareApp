@@ -1,0 +1,46 @@
+<h1><%= flash[:searchinfo] %></h1>
+<br/>
+<br/>
+<h3> Resultados: <%= @homeworks.count %> </h3>
+<% if @homeworks.count > 0 %>
+	<table>
+		<tr>
+			<th>Nombre</th>
+			<th>Descripción</th>
+			<th>Activa</th>
+			<th>Fecha de termino</th>
+			<th>Dueño</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		<tr>
+		<% @homeworks.each do |homework| %>
+			<tr>
+				<td><%= link_to homework.name, homework %></td>
+				<td><%= homework.description %></td>
+				<td>
+					<% if homework.active %>
+						Sí
+					<% else %>
+						No
+					<% end %>
+				</td>
+				<td><%= homework.deadline %></td>
+				<td><%= link_to homework.user.email, homework.user %></td>
+				<td><%= link_to 'Ver', homework %></td>
+				<td><%= link_to 'Editar', edit_homework_path(homework) %></td>
+				<td><%= link_to 'Borrar', homework, method: :delete, data: { confirm: '¿Seguro que desea borrar esta tarea?' } %></td>
+			<tr>
+		<% end %>
+	</table>
+<% else %>
+	No se encotraron resultados
+<% end %>
+<br/>
+<br/>
+<%= form_tag(search_homework_path, :method => "post") do %>
+		<%= label_tag(:simple_query, "Buscar Tarea:") %>
+		<%= text_field_tag(:simple_query) %>
+		<%= submit_tag("Buscar Tarea") %>
+<% end %>
+<%= link_to 'Ver todas las tareas', homeworks_path %>
