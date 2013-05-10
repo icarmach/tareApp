@@ -15,6 +15,14 @@
     <%= f.file_field :upload_file %>
     <%= hidden_field_tag :homework_id, params[:homework_id] %>
   </div>
+
+  <div class="field">
+    <% @random = rand(10000) %>
+    <%= image_tag("http://captchator.com/captcha/image/#{@random}") %>
+    <%= text_field :captcha, :class=>'input-block-level',  :placeholder=>'Captcha' %>
+    <%= hidden_field :captcha_random, :value => @random %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

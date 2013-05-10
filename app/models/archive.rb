@@ -1,6 +1,6 @@
 class Archive < ActiveRecord::Base
   attr_accessible :homework_user_id, :ip, :name, :version, :upload_file
-  has_attached_file :upload_file
+  has_attached_file :upload_file, :default_url => ""
 
   belongs_to :homework_user
   

@@ -85,6 +85,7 @@ class HomeworksController < ApplicationController
 			format.html { render action: "new" }
 			format.json { render json: @user.errors, status: :unprocessable_entity }
 		end
+
 	else
 		@homework.user_id = userid
 		@homework.path = @homework.description_file.url
