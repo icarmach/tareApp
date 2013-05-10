@@ -142,6 +142,39 @@ class HomeworksController < ApplicationController
 
     respond_to do |format|
       if @homework.update_attributes(params[:homework])
+	  params[:invitados].split(';').each do |g|
+			if(!User.exists?(:email => g.delete(' ')))
+				@user = User.new
+				@user.email = g.delete(' ')
+				@user.name = "Firstname"
+				@user.lastname = "Lastname"
+				@user.admin = false
+				@user.salt = SecureRandom.hex
+				@user.hash_password = SecureRandom.hex
+				@user.deleted = 0
+				@user.save
+					
+				@hu = HomeworkUser.new
+				@hu.user_id = @user.id
+				@hu.homework_id = @homework.id
+				@hu.save
+						
+				begin
+					UserMailer.first_invitation_email(@homework, @user).deliver
+				rescue
+				end
+			else
+				@user = User.find_by_email(g.delete(' '))
+				@hu = HomeworkUser.new
+				@hu.user_id = @user.id
+				@hu.homework_id = @homework.id
+				@hu.save
+				begin
+					UserMailer.invitation_email(@homework, @user).deliver
+				rescue
+				end
+			end
+		end
         format.html { redirect_to @homework, notice: 'Homework was successfully updated.' }
         format.json { head :no_content }
       else
@@ -155,6 +188,9 @@ class HomeworksController < ApplicationController
   # DELETE /homeworks/1.json
   def destroy
     @homework = Homework.find(params[:id])
+	@homework.homework_users.each do |hu|
+		hu.destroy
+	end
     @homework.destroy
 
     respond_to do |format|

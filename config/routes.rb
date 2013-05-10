@@ -22,4 +22,6 @@ TareApp::Application.routes.draw do
 	match 'search_homework' => 'homeworks#search', :as => :search_homework
 	
 	match 'upload/:homework_id/' => 'homeworks#upload'
+	
+	match 'uninvite/:homework_user_id' => 'homeworks#uninvite'
 end

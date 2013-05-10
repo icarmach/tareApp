@@ -20,7 +20,7 @@
   </div>
   <div class="field">
     <%= f.label "Enunciado Manual" %><br />
-    <%= f.text_field :description %>
+    <%= f.text_area :description %>
   </div>
   <div class="field">
     <label for="homework_active">¿Activo?</label><br />
@@ -28,25 +28,44 @@
   </div>
   <div class="field">
     <label for="homework_deadline">Fecha Límite</label><br />
-    <!-- Calendar-->
-    <div id="datetimepicker1" class="input-append date">
-      
-      <% if @homework.deadline != nil %>
-        <input data-format="dd/MM/yyyy hh:mm:ss" type="text" name="homework[deadline]" value = <%=@homework.deadline%> >
-      <% else %>
-        <input data-format="dd/MM/yyyy hh:mm:ss" type="text" name="homework[deadline]">
-      <% end %>
-
-    </input>
-      <span class="add-on">
-        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-        </i>
-      </span>
-    </div>
-      <!-- Calendar end -->
+	<% if @homework.deadline %>
+	<% @date_value = @homework.deadline.to_date.to_s + "T" %>
+	<% if @homework.deadline.hour < 10 %>
+		<% @date_value = @date_value + "0" %>
+	<% end %>
+	<% @date_value = @date_value + @homework.deadline.hour.to_s + ":" %>
+	<% if @homework.deadline.min < 10 %>
+		<% @date_value = @date_value + "0" %>
+	<% end %>
+	<% @date_value = @date_value + @homework.deadline.min.to_s + ":" %>
+	<% if @homework.deadline.sec < 10 %>
+		<% @date_value = @date_value + "0" %>
+	<% end %>
+	<% @date_value = @date_value + @homework.deadline.sec.to_s %>
+	<input type="datetime-local" name="homework[deadline]" value = "<%= @date_value.to_s %>">
+	<% else %>
+	<input type="datetime-local" name="homework[deadline]">
+	<% end%>
   </div>
   <div class="field">
+  <% if @homework.homework_users.count > 0%>
+  <label for="homework_guests">Invitados</label>
+  <br/>
+  <table>
+	<% @homework.homework_users.each do |hu| %>
+		<tr>
+			<% if hu.user %>
+				<td><%= link_to hu.user.email, hu.user %> </td>
+				<td><%= link_to "Desinvitar", "/uninvite/#{hu.id}" , data: { confirm: '¿Seguro que desea desinvitarlo?' }%></td>
+			<% end %>
+		</tr>
+	<% end %>
+  </table>
+  <br/>
+  <label for="homework_guests">Agregar más Invitados (Separados por ;)</label>
+  <% else %>
   <label for="homework_guests">Invitados (Separados por ;)</label>
+  <% end %>
   <br/>
   <textarea cols="40" id="guest-text-box" name="invitados" rows="5"> </textarea>
   </div>
