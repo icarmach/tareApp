@@ -27,7 +27,7 @@ class HomeworksController < ApplicationController
     #Revisamos si es alumno
     @homeworkuser = HomeworkUser.find_by_homework_id_and_user_id(params[:id], session[:user_id])
 
-    if(@homework.user.id == session[:user_id])
+    if(@homework.user_id == session[:user_id])
       #Conseguimos los archivos de todos los alumnos
       @userarchives = Array.new
       @homework.homework_users.each do |hu|
@@ -38,10 +38,11 @@ class HomeworksController < ApplicationController
           format.html # show.html.erb
           format.json { render json: @homework }
         end
+        
     else
       if( @homeworkuser)
       #Si lo es, mostramos todos sus archivos con las versiones subidas
-        archives = Archive.find_all_by_homework_user_id(@homeworkuser.id)
+        @archives = Archive.find_all_by_homework_user_id(@homeworkuser.id)
          respond_to do |format|
             format.html # show.html.erb
             format.json { render json: @homework }

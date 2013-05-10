@@ -33,17 +33,19 @@ Esta tarea se ha cerrado y no se pueden subir más archivos.
 <% if @homework.user.id == session[:user_id] %>
 <!-- Mostrar los archivos de todos -->
 <center><h2>Estudiantes que han subido archivos</h2>
-  <% if !@archives.nil?%>
+  <% if !@userarchives.nil?%>
     <table>
       <tr>
         <th>Estudiante</th>
         <th>Archivo</th>
       </tr>
-    <% @archives.each do |archive| %>
+    <% @userarchives.each do |archive| %>
+    <% archive.each do |a| %>
     <tr>
-        <td><%= archive.homework_user.user.email %></td>
-        <td><%= archive.version %></td>
+        <td><%= a.homework_user.user.email %></td>
+        <td><%= link_to 'Descargar Archivo',a.upload_file.url%></td>
       </tr>
+    <% end %>
     <% end %>
     </table>
   <% else %>
@@ -53,12 +55,11 @@ Esta tarea se ha cerrado y no se pueden subir más archivos.
 </center>
 <% else %>
   <% if !@archives.nil?%>
-  <h2>Mis archivos</h2>
+  <center><h2>Mis archivos</h2>
   <table>
     <tr>
-      <th>Name</th>
-      <th>Version</th>
-      <th>Ip</th>
+      <th>Nombre</th>
+      <th>Versión</th>
       <th></th>
       <th></th>
       <th></th>
@@ -68,13 +69,12 @@ Esta tarea se ha cerrado y no se pueden subir más archivos.
     <tr>
       <td><%= archive.name %></td>
       <td><%= archive.version %></td>
-      <td><%= archive.ip %></td>
       <td><%= link_to 'Detalles', archive %></td>
       <td><%= link_to 'Editar', edit_archive_path(archive) %></td>
       <td><%= link_to 'Destruir', archive, method: :delete, data: { confirm: '¿Seguro que desea eliminarlo?' } %></td>
     </tr>
   <% end %>
-  </table>
+  </table></center>
   <% end %>
 <% end %>
 
