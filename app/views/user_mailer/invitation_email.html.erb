@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+	</head>
+	<body>
+		Estimado <%= @user.name %> <%= @user.lastname %>:
+		Has sido invitado a participar en <%= @homework.name %> por <%= @owner.email %>, la fecha de termino es <%= @homework.deadline %>.
+		La descripción de la tarea es <%= @homework.description %>, más información en desaweb1.ing.puc.cl/homeworks/<%= @homework.id %>.
+		Para subir tu archivo visita desaweb1.ing.puc.cl/upload/<%= @homework.id %>.
+		
+	</body>
+</html>

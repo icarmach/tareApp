@@ -61,6 +61,20 @@ class HomeworksController < ApplicationController
 		@homework.path = @homework.description_file.url
 		respond_to do |format|
 			if @homework.save
+				params[:invitados].split(';').each do |g|
+					@user = User.find_by_email(g.delete(' '))
+					if(@user == nil)
+						@user = User.new
+						@user.email = g.delete(' ')
+						@user.name = "Firstname"
+						@user.lastname = "Lastname"
+						@user.admin = false
+					end
+					@hu = HomeworkUser.new
+					@hu.user_id = @user.id
+					@hu.homework_id = @homework.id
+					@hu.save
+				end
 				format.html { redirect_to @homework, notice: 'Homework was successfully created.' }
 				format.json { render json: @homework, status: :created, location: @homework }
 			else

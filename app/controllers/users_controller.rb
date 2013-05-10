@@ -71,6 +71,10 @@ class UsersController < ApplicationController
 		
 		respond_to do |format|
 			if @user.save
+				begin
+					UserMailer.welcome_email(@user).deliver
+				rescue
+				end
 				session[:user_id] = @user.id
 				format.html { redirect_to home_path }
 			else
