@@ -21,11 +21,11 @@
     </div>
   <% end %>
   <div class="field">
-    <%= f.label :name %><br />
+    <label for="user_name">Nombre</label>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :lastname %><br />
+    <label for="user_lastname">Apellido</label>
     <%= f.text_field :lastname %>
   </div>
   <% if User.find(session[:user_id]).admin %>

@@ -1,6 +1,8 @@
-<h1>Editing user</h1>
+<% if @user.id == session[:user_id] || User.find(session[:user_id]).admin %>
+<center><h1>Editar Usuario</h1>
 
 <%= render 'edit_form' %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+</center>
+<% else %>
+<center><h1>Error : Usted no tiene los permisos para editar este usuario</h1></center>
+<% end %>

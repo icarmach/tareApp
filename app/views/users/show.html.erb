@@ -1,30 +1,14 @@
 <p id="notice"><%= notice %></p>
-
+<center>
 <p>
   <b>Email:</b>
   <%= @user.email %>
 </p>
 
 <p>
-  <b>Name:</b>
-  <%= @user.name %>
+  <b>Nombre:</b>
+  <%= @user.name %> <%= @user.lastname %>
 </p>
 
-<p>
-  <b>Lastname:</b>
-  <%= @user.lastname %>
-</p>
-
-<p>
-  <b>Deleted:</b>
-  <%= @user.deleted %>
-</p>
-
-<p>
-  <b>Admin:</b>
-  <%= @user.admin %>
-</p>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Editar Perfil', edit_user_path(@user) %>
+</center>

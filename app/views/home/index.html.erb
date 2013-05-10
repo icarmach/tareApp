@@ -28,9 +28,6 @@
 
 
 			<center>
-				<% if flash[:error] %>
-					<p id="warning"><%= flash[:error] %></p>
-				<% end %>
 				<%= f.submit "Login" , :name => "commit", :class => "btn btn-large btn-success" %>
 				<%= link_to 'Registrarse', new_user_path, :name => "commit", :class => "btn btn-large btn-success"  %>
 			</center>
