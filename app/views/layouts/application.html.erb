@@ -11,7 +11,7 @@
     <div class ="logo"><%= link_to image_tag("logo.png"), home_path  %></div>
     <div class = "headercontrols">
 <% if session[:user_id] %>
-	 <div class="vertareas_header"><%= link_to 'Ver Tareas', homeworks_path %></div><div class="logout_header"> - <%= link_to 'Ver Perfil', User.find(session[:user_id]) %> - <%= link_to "Logout", logout_path %></div>
+	 <div class="vertareas_header"><%= link_to 'Ver Tareas', home_path %></div><div class="logout_header"> - <%= link_to 'Ver Perfil', User.find(session[:user_id]) %> - <%= link_to "Logout", logout_path %></div>
 	<% if User.find(session[:user_id]).admin %>
 		 - <%= link_to 'Administracion', admin_path %>
 	<% end %>
