@@ -51,8 +51,9 @@
 			<th></th>
 		</tr>
 
-		<% @other_homeworks.each do |homework| %>
+		<% @other_homeworks.each do |h_id| %>
 			<tr>
+				<% homework = Homework.find(h_id) %>
 				<td><%= homework.name %></td>
 				<td><%= homework.path %></td>
 				<td><%= homework.description %></td>
