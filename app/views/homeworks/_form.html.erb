@@ -42,9 +42,9 @@
 		<% @date_value = @date_value + "0" %>
 	<% end %>
 	<% @date_value = @date_value + @homework.deadline.sec.to_s %>
-	<input type="datetime-local" name="homework[deadline]" value = "<%= @date_value.to_s %>">
+	<input type="datetime-local" name="homework[deadline]" value = "<%= @date_value.to_s %>" required>
 	<% else %>
-	<input type="datetime-local" name="homework[deadline]">
+	<input type="datetime-local" name="homework[deadline]" required>
 	<% end%>
   </div>
   <div class="field">
