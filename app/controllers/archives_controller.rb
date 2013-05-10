@@ -41,6 +41,16 @@ class ArchivesController < ApplicationController
   # POST /archives.json
   def create
     @archive = Archive.new(params[:archive])
+     #Obtenemos el ip y el id del usuario de la session
+    userid = session[:user_id]
+    userip = request.remote_ip
+    #Revisamos que el usuario pueda subir el archivo para esta tarea
+
+    #Agregamos el resto de las cosas manualmente
+    @archive.ip = userip
+    #Obtenemos la versión actual: si obtenemos un archivo anterior, obtenemos la versión, sino, version 1
+    
+
 
     respond_to do |format|
       if @archive.save
@@ -57,7 +67,6 @@ class ArchivesController < ApplicationController
   # PUT /archives/1.json
   def update
     @archive = Archive.find(params[:id])
-
     respond_to do |format|
       if @archive.update_attributes(params[:archive])
         format.html { redirect_to @archive, notice: 'Archive was successfully updated.' }

@@ -1,7 +1,4 @@
-<h1>Tareas</h1>
-
-<br />
-
+<%= link_to 'Crear Tarea', new_homework_path, :name => "commit", :class => "btn btn-large btn-success"  %>
 <% if @my_homeworks.count > 0 %>
 	<h3>Mis Tareas</h3>
 
@@ -10,7 +7,7 @@
 			<th>Name</th>
 			<th>Path</th>
 			<th>Description</th>
-			<th>Active</th>
+			<th>¿Abierto?</th>
 			<th>Deadline</th>
 			<th></th>
 			<th></th>
@@ -22,7 +19,13 @@
 				<td><%= homework.name %></td>
 				<td><%= homework.path %></td>
 				<td><%= homework.description %></td>
-				<td><%= homework.active %></td>
+				<td>
+				<% if homework.active%>
+				Si
+				<% else %>
+				No
+				<% end %>
+				</td>
 				<td><%= homework.deadline %></td>
 				<td><%= link_to 'Show', homework %></td>
 				<td><%= link_to 'Edit', edit_homework_path(homework) %></td>
@@ -36,7 +39,32 @@
 
 <% if @other_homeworks.count > 0 %>
 	<h3>Tareas en que participo</h3>
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Path</th>
+			<th>Description</th>
+			<th>Active</th>
+			<th>Deadline</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+
+		<% @other_homeworks.each do |homework| %>
+			<tr>
+				<td><%= homework.name %></td>
+				<td><%= homework.path %></td>
+				<td><%= homework.description %></td>
+				<td><%= homework.active %></td>
+				<td><%= homework.deadline %></td>
+				<td><%= link_to 'Show', homework %></td>
+				<td><%= link_to 'Edit', edit_homework_path(homework) %></td>
+				<td><%= link_to 'Destroy', homework, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+		<% end %>
+	</table>
 <% end %>
 <br />
 
-<%= link_to 'New Homework', new_homework_path %>
+

@@ -28,14 +28,30 @@
     <%= f.label :lastname %><br />
     <%= f.text_field :lastname %>
   </div>
+  <% if User.find(session[:user_id]).admin %>
+      <div class="field">
+     <label for="password">Nueva Contraseña</label>
+      <br>
+       <%= password_field_tag :new_password, nil, :required => true %>
+      </div>
+      <div class="field">
+        <label for="password_confirmation">Confirmación de Nueva Contraseña</label>
+      <br>
+      <%= password_field_tag :new_password_check, nil, :required => true %>
+      </div>
+  <% end %>
   <div>
-	<%= label_tag 'Administrador'%>
-	<% if @user.admin %>
-		<%= check_box_tag 'admin', 1, true %>
-	<% else %>
-		<%= check_box_tag 'admin', 1 %>
-	<% end %>
+  <% if @user.id == session[:user_id] %>
+  <% else %>
+  <%= label_tag 'Administrador'%>
+  <% if @user.admin%>
+    <%= check_box_tag 'admin', 1, true %>
+  <% else %>
+    <%= check_box_tag 'admin', 1 %>
+  <% end %>
   </div>
+  <% end %>
+	
   <br>
   <div class="actions">
     <%= f.submit %>

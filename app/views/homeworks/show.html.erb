@@ -1,45 +1,64 @@
 <p id="notice"><%= notice %></p>
-
+<center><h1><%= @homework.name %></h1>
+<% if @homework.user.id == session[:user_id] %>
+(<%= link_to 'Editar', edit_homework_path(@homework) %>)
+<% end %>
+</center>
+<center>
 <p>
   <b>Dueño:</b>
   <%= link_to @homework.user.email, @homework.user %>
 </p>
-
 <p>
-  <b>Name:</b>
-  <%= @homework.name %>
-</p>
-
-<p>
-  <b>Description File URL:</b>
-  <%= @homework.description_file.url %>
-</p>
-
-<p>
-  <b>Description File Filename:</b>
-  <%= @homework.description_file_file_name %>
-</p>
-
-<p>
-  <b>Path:</b>
-  <%= @homework.path %>
+  <%= link_to 'Descargar Enunciado',@homework.description_file.url%>
 </p>
 
 <p>
   <b>Description:</b>
   <%= @homework.description %>
 </p>
-
+<% if @homework.active %>
 <p>
-  <b>Active:</b>
-  <%= @homework.active %>
-</p>
-
-<p>
-  <b>Deadline:</b>
+  <b>Fecha Límite:</b>
   <%= @homework.deadline %>
 </p>
+<% end %>
+<% if @homework.active %>
+<%= link_to 'Subir Archivo', "/upload/#{@homework.id}" %></td>
+<% else %>
+Esta tarea se ha cerrado y no se pueden subir más archivos.
+<% end %>
+<hr>
+</center>
+<% if @homework.user.id == session[:user_id] %>
+<!-- Mostrar los archivos de todos -->
+<center><h2>Estudiantes que han subido archivos</h2>
+</center>
+<% else %>
+  <% if !@archives.nil?%>
+  <h2>Mis archivos</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Version</th>
+      <th>Ip</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @archives.each do |archive| %>
+    <tr>
+      <td><%= archive.name %></td>
+      <td><%= archive.version %></td>
+      <td><%= archive.ip %></td>
+      <td><%= link_to 'Show', archive %></td>
+      <td><%= link_to 'Edit', edit_archive_path(archive) %></td>
+      <td><%= link_to 'Destroy', archive, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </table>
+  <% end %>
+<% end %>
 
 
-<%= link_to 'Edit', edit_homework_path(@homework) %> |
-<%= link_to 'Back', homeworks_path %>

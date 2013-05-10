@@ -11,3 +11,24 @@
  *= require_self
  *= require_tree .
  */
+.headercontrols{
+	float:right;
+	 padding-top: 40px; padding-right: 50px; 
+}
+
+.logo{
+	float: left;
+	margin-left: 20px; 
+}
+
+.header{
+	height: 100px;
+}
+
+.vertareas_header{
+	float:left;
+}
+
+.logout_header{
+	float:left;
+}

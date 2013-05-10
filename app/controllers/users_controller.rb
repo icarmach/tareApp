@@ -99,6 +99,24 @@ class UsersController < ApplicationController
 		@user.admin = false;
 	end
 	
+	#Admin force password change
+	if(params[:new_password].size > 0)
+				if(params[:new_password] == params[:new_password_check])
+							#Cambiar por la nueva contraseña
+							@user.salt = SecureRandom.hex
+							@hashed = @user.salt + params[:new_password]
+							10.times do
+								@hashed = Digest::SHA1.hexdigest(@hashed)
+							end
+							@user.hash_password = @hashed
+							@user.save
+				else
+					flash.now[:error] = "Error : La verificacion de la nueva contrasena no coincide con la nueva contrasena."
+				end
+	else
+				flash.now[:error] = "Error : La contrasena no puede estar vacia."
+	end
+	#End
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }

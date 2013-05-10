@@ -7,20 +7,38 @@
 			<center>
 				<h2 class="form-signin-heading">Por favor, identif&iacute;quese</h2>
 			</center>
-			<input type="text" name="email" class="input-block-level" id="email" placeholder="Email">
-			<input type="password" name="password" id="password" class="input-block-level" placeholder="Contrase&ntilde;a">
+			
+			
+
+				<center>
+				<div class="control-group">
+                        <!-- Username -->
+                        <div class="controls">
+                          <input type="text" name="email" class="input-xlarge" id="email" placeholder="Email">
+                        </div>
+                      </div>
+ 
+                      <div class="control-group">
+                        <!-- Password-->
+                        <div class="controls">
+                          <input type="password" name="password" id="password" class="input-xlarge" placeholder="Contrase&ntilde;a">
+                        </div>
+                      </div>
+ 				</center>
+
+
 			<center>
 				<% if flash[:error] %>
 					<p id="warning"><%= flash[:error] %></p>
 				<% end %>
-				<%= f.submit "Login" , :name => "commit", :class => "btn btn-large btn-primary" %>
-				<%= link_to 'Registrarse', new_user_path, :name => "commit", :class => "btn btn-large btn-primary"  %>
+				<%= f.submit "Login" , :name => "commit", :class => "btn btn-large btn-success" %>
+				<%= link_to 'Registrarse', new_user_path, :name => "commit", :class => "btn btn-large btn-success"  %>
 			</center>
-			<%= link_to 'Recuperar Contraseña', forgottenpassword_path %>
+			<center><%= link_to 'Recuperar Contraseña', forgottenpassword_path,:name => "forgottenpassword", :class => "btn btn-medium btn-success", :style => "margin-top: 10px; " %></center>
 		<% end %>
 	<% else %>
-		<h2>Bienvenido <%= User.find(session[:user_id]).name %> </h2>
+		<center><h2>Bienvenido, <%= User.find(session[:user_id]).name %> </h2>
 		<% @user = User.find(session[:user_id]) %>
-		<%= render 'homeworks/index_partial' %>
+		<%= render 'homeworks/index_partial' %></center>
 	<% end %>
 </div>

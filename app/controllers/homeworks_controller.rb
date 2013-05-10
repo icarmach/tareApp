@@ -24,11 +24,33 @@ class HomeworksController < ApplicationController
   # GET /homeworks/1.json
   def show
     @homework = Homework.find(params[:id])
+    #Revisamos si es alumno
+    @homeworkuser = HomeworkUser.find_by_homework_id_and_user_id(params[:id], session[:user_id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @homework }
+    if(@homework.user.id == session[:user_id])
+      #Conseguimos los archivos de todos los alumnos
+      @homeworkuser = HomeworkUser.find_by_homework_id(params[:id])
+      
+       respond_to do |format|
+          format.html # show.html.erb
+          format.json { render json: @homework }
+        end
+    else
+      if( @homeworkuser)
+      #Si lo es, mostramos todos sus archivos con las versiones subidas
+        archives = Archive.find_all_by_homework_user_id(@homeworkuser.id)
+         respond_to do |format|
+            format.html # show.html.erb
+            format.json { render json: @homework }
+          end
+      else
+      #Mostrar error: usted no pertenece a esta tarea
+        respond_to do |format|
+          format.html { redirect_to home_path, notice: 'Error: Usted no pertenece a esta tarea'}
+        end
+      end
     end
+    
   end
 
   # GET /homeworks/new
