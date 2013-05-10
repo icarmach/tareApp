@@ -11,7 +11,7 @@
     </div>
   <% end %>
   <div class="field">
-    <%= f.label :name %><br />
+    <label for="homework_name">Nombre</label><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
@@ -23,15 +23,15 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :active %><br />
+    <label for="homework_active">¿Activo?</label><br />
     <%= f.check_box :active %>
   </div>
   <div class="field">
-    <%= f.label :deadline %><br />
+    <label for="homework_deadline">Fecha Límite</label><br />
     <%= f.datetime_select :deadline %>
   </div>
   <div class="field">
-  Invitados (Separados por ;)
+  <label for="homework_guests">Invitados (Separados por ;)</label>
   <br/>
   <textarea cols="40" id="guest-text-box" name="invitados" rows="5"> </textarea>
   </div>
