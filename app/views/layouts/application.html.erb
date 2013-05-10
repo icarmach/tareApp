@@ -13,7 +13,7 @@
 <% if session[:user_id] %>
 	 <div class="vertareas_header">(<%= User.find(session[:user_id]).email %>) - <%= link_to 'Ver Tareas', home_path %></div><div class="logout_header"> - <%= link_to 'Ver Perfil', User.find(session[:user_id]) %> - <%= link_to "Logout", logout_path %></div>
 	<% if User.find(session[:user_id]).admin %>
-		 - <%= link_to 'Administracion', admin_path %>
+		 - <%= link_to 'Administración', admin_path %>
 	<% end %>
 <% else %>
 	<div class="signs_header"><%= link_to "Identificarse", home_path %> - <%= link_to 'Registrarse', new_user_path %></div>

@@ -61,17 +61,13 @@ Esta tarea se ha cerrado y no se pueden subir más archivos.
       <th>Nombre</th>
       <th>Versión</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
 
   <% @archives.each do |archive| %>
     <tr>
-      <td><%= archive.name %></td>
+      <td><%= archive.upload_file_file_name %></td>
       <td><%= archive.version %></td>
       <td><%= link_to 'Detalles', archive %></td>
-      <td><%= link_to 'Editar', edit_archive_path(archive) %></td>
-      <td><%= link_to 'Destruir', archive, method: :delete, data: { confirm: '¿Seguro que desea eliminarlo?' } %></td>
     </tr>
   <% end %>
   </table></center>

@@ -1,55 +1,21 @@
-<p id="notice"><%= notice %></p>
+<center><p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @archive.name %>
+  <b>Nombre Archivo:</b>
+  <%= @archive.upload_file_file_name %>
 </p>
 
 <p>
-  <b>Version:</b>
+  <b>Versión:</b>
   <%= @archive.version %>
 </p>
-
-<p>
-  <b>Homework user:</b>
-  <%= @archive.homework_user_id %>
-</p>
-
 <p>
   <b>Ip:</b>
   <%= @archive.ip %>
 </p>
 
 <p>
-  <b>Upload File:</b>
-  <%= image_tag @archive.upload_file.url %>
+  <b><%= link_to 'Descargar Archivo',@archive.upload_file.url%></b>
 </p>
 
-<p>
-  <b>Upload File URL:</b>
-  <%= @archive.upload_file.url %>
-</p>
-
-<p>
-  <b>Upload File Filename:</b>
-  <%= @archive.upload_file_file_name %>
-</p>
-
-<p>
-  <b>Upload File Content Type:</b>
-  <%= @archive.upload_file_content_type %>
-</p>
-
-<p>
-  <b>Upload File Size:</b>
-  <%= @archive.upload_file_file_size %>
-</p>
-
-<p>
-  <b>Upload File Updated At:</b>
-  <%= @archive.upload_file_updated_at %>
-</p>
-
-
-<%= link_to 'Editar', edit_archive_path(@archive) %> |
-<%= link_to 'Atrás', archives_path %>
+</center>
