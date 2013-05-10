@@ -41,7 +41,7 @@ Esta tarea se ha cerrado y no se pueden subir más archivos.
       </tr>
     <% @archives.each do |archive| %>
     <tr>
-        <td><%= archive.homework_user.user.name archive.homework_user.user.lastname %></td>
+        <td><%= archive.homework_user.user.email %></td>
         <td><%= archive.version %></td>
       </tr>
     <% end %>
