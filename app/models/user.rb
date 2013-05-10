@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 	def other_homeworks()
 		homeworks = Array.new
 		self.homework_users.each do |hu|
-			homeworks.push(Homework.find(hu.homework_id))
+			homeworks.push(hu.homework_id)
 		end
 		homeworks.uniq!
 		return homeworks

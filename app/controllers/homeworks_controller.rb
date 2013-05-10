@@ -97,6 +97,7 @@ class HomeworksController < ApplicationController
 						@user.admin = false
 						@user.salt = SecureRandom.hex
 						@user.hash_password = SecureRandom.hex
+						@user.deleted = 0
 						@user.save
 						
 						@hu = HomeworkUser.new
