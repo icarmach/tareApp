@@ -33,6 +33,23 @@ Esta tarea se ha cerrado y no se pueden subir más archivos.
 <% if @homework.user.id == session[:user_id] %>
 <!-- Mostrar los archivos de todos -->
 <center><h2>Estudiantes que han subido archivos</h2>
+  <% if !@archives.nil?%>
+    <table>
+      <tr>
+        <th>Estudiante</th>
+        <th>Archivo</th>
+      </tr>
+    <% @archives.each do |archive| %>
+    <tr>
+        <td><%= archive.homework_user.user.name archive.homework_user.user.lastname %></td>
+        <td><%= archive.version %></td>
+      </tr>
+    <% end %>
+    </table>
+  <% else %>
+  Ningún estudiante ha subido archivo.
+  <% end %>
+
 </center>
 <% else %>
   <% if !@archives.nil?%>

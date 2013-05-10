@@ -29,8 +29,11 @@ class HomeworksController < ApplicationController
 
     if(@homework.user.id == session[:user_id])
       #Conseguimos los archivos de todos los alumnos
-      @homeworkuser = HomeworkUser.find_by_homework_id(params[:id])
-      
+      @userarchives = Array.new
+      @homework.homework_users.each do |hu|
+             @userarchives.push(hu.archives)
+      end
+
        respond_to do |format|
           format.html # show.html.erb
           format.json { render json: @homework }
