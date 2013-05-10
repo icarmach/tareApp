@@ -12,4 +12,11 @@ class UserMailer < ActionMailer::Base
 		@owner = homework.user
 		mail(:to => user.email, :subject => "Has sido invitado a participar en #{homework.name}")
 	end
+	
+	def first_invitation_email(homework, user)
+		@homework = homework
+		@user = user
+		@owner = homework.user
+		mail(:to => user.email, :subject => "Has sido invitado a participar en #{homework.name}")
+	end
 end

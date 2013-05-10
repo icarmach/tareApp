@@ -1,3 +1,5 @@
+require 'digest/sha1'
+require 'securerandom'
 class HomeworksController < ApplicationController
   # GET /homeworks
   # GET /homeworks.json
@@ -69,11 +71,29 @@ class HomeworksController < ApplicationController
 						@user.name = "Firstname"
 						@user.lastname = "Lastname"
 						@user.admin = false
+						@user.salt = SecureRandom.hex
+						@user.hash_password = SecureRandom.hex
+						@user.save
+						
+						@hu = HomeworkUser.new
+						@hu.user_id = @user.id
+						@hu.homework_id = @homework.id
+						@hu.save
+						
+						begin
+							UserMailer.first_invitation_email(@homework, @user).deliver
+						rescue
+						end
+					else
+						@hu = HomeworkUser.new
+						@hu.user_id = @user.id
+						@hu.homework_id = @homework.id
+						@hu.save
+						begin
+							UserMailer.invitation_email(@homework, @user).deliver
+						rescue
+						end
 					end
-					@hu = HomeworkUser.new
-					@hu.user_id = @user.id
-					@hu.homework_id = @homework.id
-					@hu.save
 				end
 				format.html { redirect_to @homework, notice: 'Homework was successfully created.' }
 				format.json { render json: @homework, status: :created, location: @homework }
