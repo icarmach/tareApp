@@ -118,6 +118,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  actionmailer (~> 3.2.12)
   bootstrap-sass (~> 2.3.1.0)
   coffee-rails (~> 3.2.1)
   jquery-rails

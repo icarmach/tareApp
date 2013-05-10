@@ -39,3 +39,5 @@ gem 'jquery-rails'
 
 gem 'bootstrap-sass', '~> 2.3.1.0'
 gem "paperclip", "~> 3.4.1"
+
+gem "actionmailer", "~> 3.2.12"
