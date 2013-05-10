@@ -27,9 +27,9 @@
 				</td>
 				<td><%= homework.deadline %></td>
 				<td><%= link_to homework.user.email, homework.user %></td>
-				<td><%= link_to 'Ver', homework %></td>
+				<td><%= link_to 'Detalles', homework %></td>
 				<td><%= link_to 'Editar', edit_homework_path(homework) %></td>
-				<td><%= link_to 'Borrar', homework, method: :delete, data: { confirm: '¿Seguro que desea borrar esta tarea?' } %></td>
+				<td><%= link_to 'Destruir', homework, method: :delete, data: { confirm: '¿Seguro que desea borrar esta tarea?' } %></td>
 			<tr>
 		<% end %>
 	</table>

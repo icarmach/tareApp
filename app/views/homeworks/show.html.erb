@@ -20,7 +20,7 @@
 <% if @homework.active %>
 <p>
   <b>Fecha Límite:</b>
-  <%= @homework.deadline %>
+  <%= @homework.deadline.in_time_zone('Eastern Time (US & Canada)') %>
 </p>
 <% end %>
 <% if @homework.active %>
@@ -69,9 +69,9 @@ Esta tarea se ha cerrado y no se pueden subir más archivos.
       <td><%= archive.name %></td>
       <td><%= archive.version %></td>
       <td><%= archive.ip %></td>
-      <td><%= link_to 'Show', archive %></td>
-      <td><%= link_to 'Edit', edit_archive_path(archive) %></td>
-      <td><%= link_to 'Destroy', archive, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Detalles', archive %></td>
+      <td><%= link_to 'Editar', edit_archive_path(archive) %></td>
+      <td><%= link_to 'Destruir', archive, method: :delete, data: { confirm: '¿Seguro que desea eliminarlo?' } %></td>
     </tr>
   <% end %>
   </table>

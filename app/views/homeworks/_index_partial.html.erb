@@ -26,10 +26,10 @@
 				No
 				<% end %>
 				</td>
-				<td><%= homework.deadline %></td>
-				<td><%= link_to 'Show', homework %></td>
-				<td><%= link_to 'Edit', edit_homework_path(homework) %></td>
-				<td><%= link_to 'Destroy', homework, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				<td><%= homework.deadline.in_time_zone('Eastern Time (US & Canada)') %></td>
+				<td><%= link_to 'Detalles', homework %></td>
+				<td><%= link_to 'Editar', edit_homework_path(homework) %></td>
+				<td><%= link_to 'Destruir', homework, method: :delete, data: { confirm: '¿Seguro que desea eliminarlo?' } %></td>
 			</tr>
 		<% end %>
 	</table>
@@ -59,9 +59,9 @@
 				<td><%= homework.description %></td>
 				<td><%= homework.active %></td>
 				<td><%= homework.deadline %></td>
-				<td><%= link_to 'Show', homework %></td>
-				<td><%= link_to 'Edit', edit_homework_path(homework) %></td>
-				<td><%= link_to 'Destroy', homework, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				<td><%= link_to 'Detalles', homework %></td>
+				<td><%= link_to 'Editar', edit_homework_path(homework) %></td>
+				<td><%= link_to 'Destruir', homework, method: :delete, data: { confirm: '¿Seguro que desea eliminarlo?' } %></td>
 			</tr>
 		<% end %>
 	</table>

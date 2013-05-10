@@ -28,7 +28,22 @@
   </div>
   <div class="field">
     <label for="homework_deadline">Fecha Límite</label><br />
-    <%= f.datetime_select :deadline %>
+    <!-- Calendar-->
+    <div id="datetimepicker1" class="input-append date">
+      
+      <% if @homework.deadline != nil %>
+        <input data-format="dd/MM/yyyy hh:mm:ss" type="text" name="homework[deadline]" value = <%=@homework.deadline%> >
+      <% else %>
+        <input data-format="dd/MM/yyyy hh:mm:ss" type="text" name="homework[deadline]">
+      <% end %>
+
+    </input>
+      <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+        </i>
+      </span>
+    </div>
+      <!-- Calendar end -->
   </div>
   <div class="field">
   <label for="homework_guests">Invitados (Separados por ;)</label>

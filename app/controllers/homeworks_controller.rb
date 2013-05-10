@@ -76,6 +76,7 @@ class HomeworksController < ApplicationController
   # POST /homeworks.json
   def create
     @homework = Homework.new(params[:homework])
+    @homework.deadline = @homework.deadline + 4.hours
     userid = session[:user_id]
 	if(User.find(userid).homeworks.count >= 20)
 		@homework.errors.add(:user_id, "Usted ya tiene veinte o mas tareas")
@@ -135,6 +136,7 @@ class HomeworksController < ApplicationController
   # PUT /homeworks/1.json
   def update
     @homework = Homework.find(params[:id])
+    @homework.deadline = @homework.deadline + 4.hours
 
     respond_to do |format|
       if @homework.update_attributes(params[:homework])
