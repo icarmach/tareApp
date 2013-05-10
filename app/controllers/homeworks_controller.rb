@@ -86,8 +86,7 @@ class HomeworksController < ApplicationController
 		respond_to do |format|
 			if @homework.save
 				params[:invitados].split(';').each do |g|
-					@user = User.find_by_email(g.delete(' '))
-					if(@user == nil)
+					if(!User.exists?(:email => g.delete(' ')))
 						@user = User.new
 						@user.email = g.delete(' ')
 						@user.name = "Firstname"
@@ -107,6 +106,7 @@ class HomeworksController < ApplicationController
 						rescue
 						end
 					else
+						@user = User.find_by_email(g.delete(' '))
 						@hu = HomeworkUser.new
 						@hu.user_id = @user.id
 						@hu.homework_id = @homework.id
