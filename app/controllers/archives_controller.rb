@@ -49,12 +49,17 @@ class ArchivesController < ApplicationController
     #Agregamos el resto de las cosas manualmente
     @archive.ip = userip
     #Obtenemos la versión actual: si obtenemos un archivo anterior, obtenemos la versión, sino, version 1
-    
-
-
+    homeworkuser = HomeworkUser.find_by_homework_id_and_user_id(params[:homework_id], userid)
+    if(homeworkuser.archives.nil?)
+      #Get versión
+      @archive.version = homeworkuser.archives.last.version+1
+    else
+      @archive.version = 1
+    end
+    @archive.homework_user_id = homeworkuser.id
     respond_to do |format|
       if @archive.save
-        format.html { redirect_to @archive, notice: 'Archive was successfully created.' }
+        format.html { redirect_to @archive, notice: 'El archivo fue subido exitosamente.' }
         format.json { render json: @archive, status: :created, location: @archive }
       else
         format.html { render action: "new" }
@@ -69,7 +74,7 @@ class ArchivesController < ApplicationController
     @archive = Archive.find(params[:id])
     respond_to do |format|
       if @archive.update_attributes(params[:archive])
-        format.html { redirect_to @archive, notice: 'Archive was successfully updated.' }
+        format.html { redirect_to @archive, notice: 'El archivo fue subido exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

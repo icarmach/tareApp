@@ -1,1 +1,22 @@
-<h2>Subiendo archivo para <%= Homework.find(params[:homework_id]).name %> </h2>
+<center><h2>Subiendo archivo para <%= @homework.name %> </h2>
+<%= form_for(@archive, :html => { :multipart => true }) do |f| %>
+  <% if @archive.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@archive.errors.count, "error") %> prohibited this archive from being saved:</h2>
+
+      <ul>
+      <% @archive.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.file_field :upload_file %>
+    <%= hidden_field_tag :homework_id, params[:homework_id] %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</center>

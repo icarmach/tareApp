@@ -175,10 +175,18 @@ class HomeworksController < ApplicationController
 	end
 	
 	def upload
-		
-		respond_to do |format|
-			format.html
-			format.json
-		end
-	end
+    @homework = Homework.find(params[:homework_id])
+    #Revisar si el usuario efectivamente puede subir el archivo aca
+    @homeworkuser = HomeworkUser.find_all_by_homework_id_and_user_id(params[:homework_id], session[:user_id])
+    if( @homeworkuser )
+      @archive = Archive.new
+      respond_to do |format|
+        format.html
+        format.json
+      end
+    else
+      format.html { redirect_to home_path, notice: 'Error : Usted no tiene acceso a esta tarea' }
+    end
+  end
+  
 end
